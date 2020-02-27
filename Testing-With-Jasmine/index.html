@@ -46,6 +46,22 @@
                 expect(function(){}).toEqual(jasmine.any(Function));
             });
 
+            describe('Array', () => {
+                var arr;
+                beforeEach(() => {
+                    arr = [1,3,5];
+                });
+
+                describe('#unshift', () => {
+                    it("adds an element to the beginning of an array", () =>{
+                        arr.unshift(17);
+                        expect(arr[0]).toBe(17);
+                    });
+                    it('return the new length', () => {
+                        expect(arr.unshift(1000)).toBe(4);
+                    });
+                });
+            });
         });
     </script>
 </body>
