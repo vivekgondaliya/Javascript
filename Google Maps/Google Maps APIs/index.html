@@ -29,13 +29,37 @@
     </div>
 
     <script>
-        var map;
+        let map;
         function initMap() {
-            var options = {
-                center: {lat: 45.5051, lng: -122.6750},
+            //map location
+            let mapLocation = {lat: 45.5051, lng: -122.6750};
+
+            //map options
+            let mapOptions = {
+                center: mapLocation,
                 zoom: 12
             };
-            map = new google.maps.Map(document.getElementById('map'), options);
+            
+            //new map
+            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+
+            //add marker
+            let markerLocation = {lat: 45.5194, lng: -122.7069};
+            let markerOptions = {
+                position: markerLocation, 
+                map: map,
+                icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+            }
+            let marker = new google.maps.Marker(markerOptions);
+
+            let contentString = '<h2>Location 1</h2>';
+            //marker info window
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            marker.addListener('click', function() {
+                infowindow.open(map, marker);
+            });
         }
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDkQFBT9aIFJVnFHWs9sHAQDTEzS60bvM&callback=initMap"
