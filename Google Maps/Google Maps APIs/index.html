@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Google Maps API - JS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" type="text/css"/>
+    <style>
+        body {
+            font: 100% Helvetica, sans-serif;;
+            color: #333;
+            background: linear-gradient(rgb(47, 150, 163), rgb(48, 62, 143));
+        }
+
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Google Maps API - JS</h1>
+        <div id="map"></div>
+    </div>
+
+    <script>
+        var map;
+        function initMap() {
+            var options = {
+                center: {lat: 45.5051, lng: -122.6750},
+                zoom: 12
+            };
+            map = new google.maps.Map(document.getElementById('map'), options);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDkQFBT9aIFJVnFHWs9sHAQDTEzS60bvM&callback=initMap"
+    async defer></script>
+</body>
+</html>
