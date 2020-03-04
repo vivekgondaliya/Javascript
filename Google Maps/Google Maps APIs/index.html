@@ -40,11 +40,16 @@
                 zoom: 12
             };
             
-            //new map
-            map = new google.maps.Map(document.getElementById('map'),       mapOptions);
-
             //global infoWindow
             let infoWindow = new google.maps.InfoWindow();
+            
+            //new map
+            map = new google.maps.Map(document.getElementById('map'),       mapOptions);
+            //closed infoWindow if map is clicked
+            map.addListener('click', function() {
+                if (infoWindow) infoWindow.close();
+            });
+
             //add marker(s)
             function addMarker(props){
                 let markerOptions = {
