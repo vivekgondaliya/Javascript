@@ -52,13 +52,54 @@
             }
             let marker = new google.maps.Marker(markerOptions);
 
-            let contentString = '<h2>Location 1</h2>';
-            //marker info window
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-            marker.addListener('click', function() {
-                infowindow.open(map, marker);
+            function addMarker(props){
+                let markerOptions = {
+                    position: props.coords, 
+                    map: map
+                }
+                let marker = new google.maps.Marker(markerOptions);
+
+                //check for custom icon
+                if(props.iconImage){
+                    marker.setIcon(props.iconImage);
+                }
+
+                //check infoWindow content
+                if(props.content){
+                    //marker info window
+                    let infoWindow = new google.maps.InfoWindow({
+                        content: props.content
+                    });
+
+                    marker.addListener('click', function() {
+                        infoWindow.open(map, marker);
+                    });
+                }
+            }
+
+            const markerIcon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+
+            //array of markers
+            let markers = [{
+                    coords:{lat: 45.5194, lng: -122.7069},
+                    iconImage: markerIcon,
+                    content : '<h2>Location 1</h2>'
+                },
+                {
+                    coords:{lat: 45.5253, lng: -122.6733},
+                    iconImage: markerIcon,
+                    content : '<h2>Location 2</h2>'
+                },
+                {
+                    coords:{lat: 45.5187, lng: -122.6786},
+                    iconImage: markerIcon,
+                    content : '<h2>Location 3</h2>'
+                }
+            ];
+
+            //loop through and set markers
+            markers.map(marker => {
+                addMarker(marker);
             });
         }
     </script>
