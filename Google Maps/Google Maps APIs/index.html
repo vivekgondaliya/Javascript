@@ -41,17 +41,11 @@
             };
             
             //new map
-            map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            map = new google.maps.Map(document.getElementById('map'),       mapOptions);
 
-            //add marker
-            let markerLocation = {lat: 45.5194, lng: -122.7069};
-            let markerOptions = {
-                position: markerLocation, 
-                map: map,
-                icon: "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
-            }
-            let marker = new google.maps.Marker(markerOptions);
-
+            //global infoWindow
+            let infoWindow = new google.maps.InfoWindow();
+            //add marker(s)
             function addMarker(props){
                 let markerOptions = {
                     position: props.coords, 
@@ -67,11 +61,8 @@
                 //check infoWindow content
                 if(props.content){
                     //marker info window
-                    let infoWindow = new google.maps.InfoWindow({
-                        content: props.content
-                    });
-
                     marker.addListener('click', function() {
+                        infoWindow.setContent(props.content);
                         infoWindow.open(map, marker);
                     });
                 }
