@@ -30,3 +30,15 @@ var myRevealingModule = (function () {
 })();
 
 myRevealingModule.start();
+
+//Advantages
+/**
+ * - consistent syntax
+ * - eases redability between private and public
+ */
+
+//Disadvantages
+/**
+ * - private function referes to a public function
+ * - 
+ */
