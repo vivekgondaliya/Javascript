@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Google Maps API - JS</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet" type="text/css"/>
+    <style>
+        body {
+            font: 100% Helvetica, sans-serif;;
+            color: #333;
+            background: linear-gradient(rgb(47, 150, 163), rgb(48, 62, 143));
+        }
+
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Google Maps API - JS</h1>
+        <div id="map"></div>
+    </div>
+
+    <script>
+        let map;
+        function initMap() {
+            //map location
+            let mapLocation = {lat: 45.5051, lng: -122.6750};
+
+            //map options
+            let mapOptions = {
+                center: mapLocation,
+                zoom: 12
+            };
+            
+            //global infoWindow
+            let infoWindow = new google.maps.InfoWindow();
+            
+            //new map
+            map = new google.maps.Map(document.getElementById('map'),       mapOptions);
+            //closed infoWindow if map is clicked
+            map.addListener('click', function() {
+                if (infoWindow) infoWindow.close();
+            });
+
+            //add marker(s)
+            function addMarker(props){
+                let markerOptions = {
+                    position: props.coords, 
+                    map: map
+                }
+                let marker = new google.maps.Marker(markerOptions);
+
+                //check for custom icon
+                if(props.iconImage){
+                    marker.setIcon(props.iconImage);
+                }
+
+                //check infoWindow content
+                if(props.content){
+                    //marker info window
+                    marker.addListener('click', function() {
+                        infoWindow.setContent(props.content);
+                        infoWindow.open(map, marker);
+                    });
+                }
+            }
+
+            const markerIcon = "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png";
+
+            //array of markers
+            let markers = [{
+                    coords:{lat: 45.5194, lng: -122.7069},
+                    iconImage: markerIcon,
+                    content : '<h2>Location 1</h2>'
+                },
+                {
+                    coords:{lat: 45.5253, lng: -122.6733},
+                    iconImage: markerIcon,
+                    content : '<h2>Location 2</h2>'
+                },
+                {
+                    coords:{lat: 45.5187, lng: -122.6786},
+                    iconImage: markerIcon,
+                    content : '<h2>Location 3</h2>'
+                }
+            ];
+
+            //loop through and set markers
+            markers.map(marker => {
+                addMarker(marker);
+            });
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDkQFBT9aIFJVnFHWs9sHAQDTEzS60bvM&callback=initMap"
+    async defer></script>
+</body>
+</html>
